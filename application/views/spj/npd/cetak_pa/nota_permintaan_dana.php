@@ -114,8 +114,6 @@ $selectedYear = $this->input->get('tanggal_npd'); // Gantilah tahun yang sesuai 
         if ($data_belanja->belanja_id == $data_rpp->belanja_id) {
           // Tambahkan filter sesuai tahun
           if (date('Y-m-d', strtotime($data_rpp->tanggal_npd)) == $selectedYear) {
-            $neto[] = $data_rpp->biaya * $data_rpp->lama_perjalanan;
-            $total_neto = array_sum($neto);
             ++$a;
             if ($a == 1) { ?>
               <tr>

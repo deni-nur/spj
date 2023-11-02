@@ -105,30 +105,7 @@ $selectedYear = $this->input->get('tanggal_npd'); // Gantilah tahun yang sesuai 
     </tr>
 </thead>
 <tbody>
-        <?php foreach($dpa->result() as $key => $data) { ?>
-            <?php } ?>
-            <tr>
-                <th align="left" colspan="5"><?=$data->kode_program ?> <?=$data->nama_program ?></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr>
-                <th align="left" colspan="5"><?=$data->kode_program ?>.<?=$data->kode_kegiatan ?> <?=$data->nama_kegiatan ?></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr>
-                <th align="left" colspan="5"><?=$data->kode_program ?>.<?=$data->kode_kegiatan ?>.<?=$data->kode ?> <?=$data->name ?></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        
+
     <?php
     $no = 1;
     $a = 0;
@@ -139,20 +116,70 @@ $selectedYear = $this->input->get('tanggal_npd'); // Gantilah tahun yang sesuai 
         if ($data_belanja->belanja_id == $data_rpp->belanja_id) {
           // Tambahkan filter sesuai tahun
           if (date('Y-m-d', strtotime($data_rpp->tanggal_npd)) == $selectedYear) {
-            $neto[] = $data_rpp->biaya * $data_rpp->lama_perjalanan;
-            $pajak[] = $data_rpp->hasil_pajak;
+            
             $total_neto += $data_rpp->biaya * $data_rpp->lama_perjalanan;
             $total_pajak += $data_rpp->hasil_pajak;
             ++$a;
             if ($a == 1) { ?>
+        
+        <?php } ?>
+        
+        <?php }}} $a=0; } ?>
+
+        <?php 
+            foreach($dpa->result() as $key => $data) {
+            } ?>
+            <tr>
+                <th align="left" colspan="5"><?=$data->kode_program ?> <?=$data->nama_program ?></th>
+                <th align="right"><?=indo_bil($total_neto) ?></th>
+                <th align="right"><?=indo_bil($total_pajak) ?></th>
+                <th align="right"><?=indo_bil($total_neto-$total_pajak) ?></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th align="left" colspan="5"><?=$data->kode_program ?>.<?=$data->kode_kegiatan ?> <?=$data->nama_kegiatan ?></th>
+                <th align="right"><?=indo_bil($total_neto) ?></th>
+                <th align="right"><?=indo_bil($total_pajak) ?></th>
+                <th align="right"><?=indo_bil($total_neto-$total_pajak) ?></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th align="left" colspan="5"><?=$data->kode_program ?>.<?=$data->kode_kegiatan ?>.<?=$data->kode ?> <?=$data->name ?></th>
+                <th align="right"><?=indo_bil($total_neto) ?></th>
+                <th align="right"><?=indo_bil($total_pajak) ?></th>
+                <th align="right"><?=indo_bil($total_neto-$total_pajak) ?></th>
+                <th></th>
+            </tr>
+        
+    <?php
+    $no = 1;
+    $a = 0;
+    $b = 0;
+    $total_neto = 0;
+    $total_pajak = 0;
+    foreach ($belanja->result() as $key1 => $data_belanja) {
+      foreach ($npd as $data_rpp) {
+        if ($data_belanja->belanja_id == $data_rpp->belanja_id) {
+          // Tambahkan filter sesuai tahun
+          if (date('Y-m-d', strtotime($data_rpp->tanggal_npd)) == $selectedYear) {
+            
+            $total_neto += $data_rpp->biaya * $data_rpp->lama_perjalanan;
+            $total_pajak += $data_rpp->hasil_pajak;
+            ++$a;
+            if ($a == 1) {
+
+        foreach ($total_belanja->result() as $key => $data_total_belanja) {
+        if ($data_belanja->belanja_id == $data_total_belanja->belanja_id) {
+            ++$b;
+            if ($b == 1) { ?>
         <tr>
             <th align="left" colspan="5"><?=$data->kode_program ?>.<?=$data->kode_kegiatan ?>.<?=$data->kode ?>.<?=$data_belanja->kode_akun ?>.<?=$data_belanja->kode_kelompok ?>.<?=$data_belanja->kode_jenis ?>.<?=$data_belanja->kode_objek ?>.<?=$data_belanja->kode_rincian_objek ?>.<?=$data_belanja->kode_sub_rincian_objek ?> <?=$data_belanja->nama_sub_rincian_objek ?></th>
-            <th><?=indo_bil($total_neto) ?></th>
-            <th></th>
-            <th></th>
+            <th align="right"><?=indo_bil($data_total_belanja->total_per_belanja) ?></th>
+            <th align="right"><?=indo_bil($data_total_belanja->total_per_pajak) ?></th>
+            <th align="right"><?=indo_bil($data_total_belanja->total_per_belanja-$data_total_belanja->total_per_pajak) ?></th>
             <th></th>
         </tr>
-        <?php } ?>
+        <?php }}} $b= 0; } ?>
         <tr>
             <td align="center" valign="top"><?=$no++ ?>.</td>
             <td><?=$data_rpp->uraian ?></td>
@@ -164,7 +191,7 @@ $selectedYear = $this->input->get('tanggal_npd'); // Gantilah tahun yang sesuai 
             <td align="right"><?=indo_bil($data_rpp->biaya*$data_rpp->lama_perjalanan-$data_rpp->hasil_pajak) ?></td>
             <td></td>
         </tr>
-        <?php }} $a=0; }} ?>
+        <?php }}} $a = 0; } ?>
        <tr>
            <td colspan="5" align="center"><b>TOTAL</td>
            <td align="right"><b><?=indo_bil($total_neto) ?></td>
@@ -174,6 +201,7 @@ $selectedYear = $this->input->get('tanggal_npd'); // Gantilah tahun yang sesuai 
         </tr>
 </tbody>
 </table>
+
 
 <table>
   <tbody>

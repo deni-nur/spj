@@ -49,8 +49,8 @@
                                 if($a==1) { ?>
                         <tr>
                             <th colspan="3">[BELANJA] <?=$data_belanja->kode_akun ?>.<?=$data_belanja->kode_kelompok ?>.<?=$data_belanja->kode_jenis ?>.<?=$data_belanja->kode_objek ?>.<?=$data_belanja->kode_rincian_objek ?>.<?=$data_belanja->kode_sub_rincian_objek ?> <?=$data_belanja->nama_sub_rincian_objek ?></th>
-                            <th width="10%"><!-- <?=indo_currency($data_belanja->jumlah_biaya) ?> --></th>
-                            <th colspan="3"></th>
+                            <th colspan="3" width="10%"><?=indo_currency($data_belanja->total_belanja) ?></th>
+
                         </tr>
                     <?php } ?>        
                 </thead>

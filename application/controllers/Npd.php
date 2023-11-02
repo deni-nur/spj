@@ -23,7 +23,7 @@ class Npd extends CI_Controller {
 	{
 		$dpa_id = $this->uri->segment(2);
 
-		$belanja = $this->dpa_m->getbelanja();
+		$belanja = $this->npd_m->get_belanja($dpa_id);
 		$npd = $this->npd_m->get($dpa_id);
 		$ttd_keuangan = $this->ttd_keuangan_m->get();
 
@@ -183,13 +183,15 @@ class Npd extends CI_Controller {
 		$npd = $this->npd_m->getNpdData($tanggalDipilih);
 		$dpa = $this->npd_m->get_dpa($dpa_id);
 		$belanja = $this->npd_m->get_belanja($dpa_id);
+		$total_belanja = $this->npd_m->get_total_belanja($tanggalDipilih);
 
 		$data = array(	'title'				=> 'NPD',
 						'npd'				=> $npd,
 						'dpa'				=> $dpa,
 						'belanja'			=> $belanja,
 						'selected_pa_kpa'	=> $selected_pa_kpa,
-						'selected_pptk'		=> $selected_pptk
+						'selected_pptk'		=> $selected_pptk,
+						'total_belanja'		=> $total_belanja
 					);
 
 		if ($format_cetak == 'nota_dinas') {
