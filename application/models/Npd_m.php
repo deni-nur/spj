@@ -2,6 +2,22 @@
 
 class Npd_m extends CI_Model {
 
+	public function get_pagu_npd($id = null)
+	{
+	    $this->db->select('npd.*, dpa.kode, dpa.name, program.kode as kode_program, program.name as nama_program, kegiatan.kode as kode_kegiatan, kegiatan.name as nama_kegiatan, SUM(biaya * lama_perjalanan) as total_belanja');
+	    $this->db->from('npd');
+	    $this->db->join('dpa', 'npd.dpa_id = dpa.dpa_id', 'left');
+	    $this->db->join('kegiatan', 'dpa.kegiatan_id = kegiatan.kegiatan_id', 'left');
+	    $this->db->join('program', 'kegiatan.program_id = program.program_id', 'left');
+	    if ($id != null) {
+	        $this->db->where('npd.dpa_id', $id);
+	    }
+	    $this->db->group_by('npd.dpa_id');
+	    $query = $this->db->get();
+	    return $query;
+	}
+
+
 	public function get($id=null)
 	{
 		$this->db->select('npd.*, sub_rincian_objek.nama_sub_rincian_objek, sub_rincian_objek.kode_sub_rincian_objek, rekening.no_rekening, rekening.bank, rekening.pemilik');

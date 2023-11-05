@@ -20,7 +20,8 @@
 		<div class="box-header">
 			<h3 class="box-title">Data Surat Tugas</h3>
 			<div class="pull-right">
-				<a href="<?=site_url('surat_tugas/add') ?>" class="btn btn-success">
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-cetak"><i class="fa fa-print"></i> Cetak</button>
+                <a href="<?=site_url('surat_tugas/add') ?>" class="btn btn-success">
 					<i class="fa fa-plus"></i> Create
 				</a>
 			</div>
@@ -60,7 +61,6 @@
               <?php } ?>
 				</tbody>
 			</table>
-      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-cetak"><i class="fa fa-print"></i> Cetak</button>
 		</div>
 	</div>
 

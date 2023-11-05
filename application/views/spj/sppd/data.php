@@ -19,6 +19,7 @@
   <div class="box-header">
     <h3 class="box-title">Data Surat Perintah Perjalanan Dinas</h3>
     <div class="pull-right">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-cetak"><i class="fa fa-print"></i> Cetak</button>
       <a href="<?=base_url('sppd/add') ?>" class="btn btn-success">
         <i class="fa fa-plus"></i> Create
       </a>
@@ -59,7 +60,6 @@
       <?php } ?>
       </tbody>
     </table>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-cetak"><i class="fa fa-print"></i> Cetak</button>
   </div>
 </div>
 

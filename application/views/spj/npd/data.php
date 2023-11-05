@@ -31,6 +31,7 @@
                         <th>Program</th>
                         <th>Kegiatan</th>
                         <th>Sub Kegiatan</th>
+                        <th>Realisasi</th>
                         <th>Actions</th>
                     </tr>      
                 </thead>
@@ -43,6 +44,7 @@
                         <td><?=$data->nama_program ?></td>
                         <td><?=$data->nama_kegiatan ?></td>
                         <td><?=$data->name ?></td>
+                        <td><?=indo_bil($data->total_belanja) ?></td>
                         <td>
                             <a href="<?=base_url('npd/'.$data->dpa_id.'/rincian') ?>" class="btn btn-success">
                                 <i class="fa fa-plus" title="Create"></i>

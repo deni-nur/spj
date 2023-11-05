@@ -15,12 +15,16 @@
 <section class="content">
     <div class="box">
         <div class="box-header">
-            <?php
-                foreach($dpa->result() as $key => $data_dpa) { ?>
-            <?php } ?>
+            <?php $a=0;
+                foreach($dpa->result() as $key => $data_dpa) {
+                foreach($pagu_belanja_murni->result() as $key1 => $data_pagu) {
+                if($data_dpa->dpa_id==$data_pagu->dpa_id) {
+                ++$a;
+                if($a==1) { ?>
+            <?php }} $a=0; } ?>
             <h3 class="box-title">[SUB KEGIATAN] <?=$data_dpa->kode_program ?>.<?=$data_dpa->kode_kegiatan ?>.<?=$data_dpa->kode ?> <?=$data_dpa->name ?>
-                Pagu Anggaran Sebesar <?=indo_currency($jumlah_pagu_belanja_murni->jumlah_pagu_belanja_murni) ?></h3>
-            
+                Pagu Anggaran Sebesar <?=indo_currency($data_pagu->total_pagu_belanja_murni) ?></h3>
+            <?php } ?>
         </div>
     </div>
     <?php 

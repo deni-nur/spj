@@ -14,10 +14,7 @@ class Dpa extends CI_Controller {
 	{
 		$dpa = $this->dpa_m->get();
 
-		$pagu_murni = $this->dpa_m->pagu_murni();
-
-		$data = array(	'dpa'			=> $dpa,
-						'pagu_murni'	=> $pagu_murni
+		$data = array(	'dpa'			=> $dpa
 					);
 
 		$this->template->load('template', 'penganggaran/dpa/subkegiatan/data', $data);
@@ -99,12 +96,12 @@ class Dpa extends CI_Controller {
 	{
 		$dpa_id = $this->uri->segment(2);
 
-		$dpa = $this->dpa_m->getbelanja($dpa_id);
+		$dpa = $this->dpa_m->total_pagu($dpa_id);
 		$belanja = $this->dpa_m->getbelanja($dpa_id);
-		$jumlah_pagu_belanja_murni = $this->dpa_m->jumlah_pagu_belanja_murni($dpa_id);
+		$pagu_belanja_murni = $this->dpa_m->pagu_belanja_murni($dpa_id);
 
 		$data = array(	'belanja'					=>	$belanja,
-						'jumlah_pagu_belanja_murni'	=>	$jumlah_pagu_belanja_murni,
+						'pagu_belanja_murni'	=>	$pagu_belanja_murni,
 						'dpa'						=>	$dpa
 					);
 

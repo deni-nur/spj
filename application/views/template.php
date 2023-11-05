@@ -250,21 +250,11 @@
           </ul>
         </li>
 
-      <li <?=$this->uri->segment(1) == 'sppd' ? 'class="active"' : '' ?>><a href="<?= site_url('sppd') ?>"><i class="fa fa-sticky-note-o"></i> Surat Perintah Perjalan Dinas</a></li>
-      <li <?=$this->uri->segment(1) == 'lhpd' ? 'class="active"' : '' ?>><a href="<?= site_url('lhpd') ?>"><i class="fa fa-file-o"></i> Laporan Hasil Perjalan Dinas</a></li>
-      <li <?=$this->uri->segment(1) == 'npd' ? 'class="active"' : '' ?>><a href="<?= site_url('npd') ?>"><i class="fa fa-dollar"></i> Nota Permintaan Dana</a></li>
-    <!-- <li class="treeview <?=$this->uri->segment(1) == 'pp' ? 'active' : '' ?>">
-      <a href="#"><i class="fa fa-circle-o"></i> Nota Permintaan Dana
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li <?=$this->uri->segment(3) == 'pp' ? 'class="active"' : '' ?>><a href="<?=site_url('portal/'.$this->uri->segment(2).'/pp') ?>"><i class="fa fa-circle-o"></i> Permintaan Pembayaran</a></li>   
-      </ul>
-    </li> -->
-    <li <?=$this->uri->segment(3) == 'kwitansi' ? 'class="active"' : '' ?>><a href="<?= site_url('portal/'.$this->uri->segment(2).'/kwitansi') ?>"><i class="fa fa-list-alt"></i> Kwitansi</a></li>
-    <li <?=$this->uri->segment(3) == 'rekap' ? 'class="active"' : '' ?>><a href="<?= site_url('portal/'.$this->uri->segment(2).'/rekap') ?>"><i class="fa fa-paste"></i> Rekap Biaya</a></li>
+    <li <?=$this->uri->segment(1) == 'sppd' ? 'class="active"' : '' ?>><a href="<?= site_url('sppd') ?>"><i class="fa fa-sticky-note-o"></i> Surat Perintah Perjalan Dinas</a></li>
+    <li <?=$this->uri->segment(1) == 'lhpd' ? 'class="active"' : '' ?>><a href="<?= site_url('lhpd') ?>"><i class="fa fa-file-o"></i> Laporan Hasil Perjalan Dinas</a></li>
+    <li <?=$this->uri->segment(1) == 'npd' ? 'class="active"' : '' ?>><a href="<?= site_url('npd') ?>"><i class="fa fa-dollar"></i> Nota Permintaan Dana</a></li>
+    <li <?=$this->uri->segment(1) == 'kwitansi' ? 'class="active"' : '' ?>><a href="<?= site_url('kwitansi') ?>"><i class="fa fa-list-alt"></i> Kwitansi</a></li>
+    <li <?=$this->uri->segment(1) == 'rekap' ? 'class="active"' : '' ?>><a href="<?= site_url('rekap') ?>"><i class="fa fa-paste"></i> Rekap Biaya</a></li>
     </ul>
 </li>
 

@@ -70,3 +70,9 @@ $route['npd/(:num)/rincian'] = 'npd/rincian';
 $route['npd/(:num)/add'] = 'npd/add';
 $route['npd/(:num)/edit/(:num)'] = 'npd/edit/$1';
 $route['npd/(:num)/cetak'] = 'npd/cetak';
+
+$route['kwitansi/(:num)/belanja'] = 'kwitansi/belanja';
+$route['kwitansi/(:num)/belanja/(:num)/data'] = 'kwitansi/data';
+$route['kwitansi/(:num)/belanja/(:num)/add'] = 'kwitansi/add';
+$route['kwitansi/(:num)/belanja/(:num)/edit/(:num)'] = 'kwitansi/edit/$1';
+$route['kwitansi/(:num)/belanja/(:num)/cetak'] = 'kwitansi/cetak';

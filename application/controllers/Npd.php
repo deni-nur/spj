@@ -11,7 +11,7 @@ class Npd extends CI_Controller {
 
 	public function index()
 	{
-		$npd = $this->dpa_m->get();
+		$npd = $this->npd_m->get_pagu_npd();
 
 		$data = array(	'npd'		=>	$npd
 					);

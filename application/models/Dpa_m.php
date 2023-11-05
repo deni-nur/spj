@@ -8,33 +8,20 @@ class Dpa_m extends CI_Model {
         $id = $this->session->userdata('userid');
         $level = $this->session->userdata('level_id');
 
-        $this->db->select('dpa.*, program.kode as kode_program, program.name as nama_program, kegiatan.kode as kode_kegiatan, kegiatan.name as nama_kegiatan');
+        $this->db->select('dpa.*, program.kode as kode_program, program.name as nama_program, kegiatan.kode as kode_kegiatan, kegiatan.name as nama_kegiatan, SUM(belanja.pagu_belanja_murni) as total_pagu_belanja_murni');
         $this->db->from('dpa');
         $this->db->join('kegiatan', 'dpa.kegiatan_id = kegiatan.kegiatan_id', 'left');
         $this->db->join('program', 'kegiatan.program_id = program.program_id', 'left');
-        //$this->db->join('belanja', 'belanja.dpa_id=dpa.dpa_id');
+        $this->db->join('belanja', 'belanja.dpa_id = dpa.dpa_id', 'left');
         // Tambahkan kondisi berdasarkan level pengguna
         if ($level != 1) {
-            $this->db->where('dpa.user_id', $id);   
+            $this->db->where('dpa.user_id', $id);
         }
-        //$this->db->group_by('dpa_id');
+        $this->db->group_by('dpa.dpa_id');
         $this->db->order_by('dpa.dpa_id', 'asc');
         $query = $this->db->get();
         return $query;
-    }
 
-    public function pagu_murni()
-    {
-        //$dpa_id = $this->input->post('dpa_id');
-
-        $this->db->select('belanja.*, IFNULL(SUM(belanja.pagu_belanja_murni),0) as pagu_murni');
-        $this->db->from('belanja');
-        //$this->db->join('belanja', 'belanja.dpa_id=dpa.dpa_id');
-        //$this->db->where('belanja.dpa_id'); 
-        //$this->db->where('belanja.dpa_id', $dpa_id);
-        $this->db->group_by('belanja.dpa_id');
-        $query = $this->db->get();
-        return $query;
     }
 
     public function detail($dpa_id)
@@ -66,6 +53,26 @@ class Dpa_m extends CI_Model {
         $this->db->delete('dpa');
     }
 
+    public function total_pagu($id = null)
+    {
+        $this->db->select('belanja.*, dpa.kode, dpa.name, program.kode as kode_program, program.name as nama_program, kegiatan.kode as kode_kegiatan, kegiatan.name as nama_kegiatan, akun.kode_akun, kelompok.kode_kelompok, jenis.kode_jenis, objek.kode_objek, rincian_objek.kode_rincian_objek, sub_rincian_objek.kode_sub_rincian_objek, sub_rincian_objek.nama_sub_rincian_objek, SUM(pagu_belanja_murni) as total_pagu_belanja_murni');
+        $this->db->from('belanja');
+        $this->db->join('dpa', 'belanja.dpa_id = dpa.dpa_id', 'left');
+        $this->db->join('kegiatan', 'dpa.kegiatan_id = kegiatan.kegiatan_id', 'left');
+        $this->db->join('program', 'kegiatan.program_id = program.program_id', 'left');
+        $this->db->join('sub_rincian_objek', 'belanja.sub_rincian_objek_id = sub_rincian_objek.sub_rincian_objek_id', 'left');
+        $this->db->join('rincian_objek', 'sub_rincian_objek.rincian_objek_id = rincian_objek.rincian_objek_id', 'left');
+        $this->db->join('objek', 'rincian_objek.objek_id = objek.objek_id', 'left');
+        $this->db->join('jenis', 'objek.jenis_id = jenis.jenis_id', 'left');
+        $this->db->join('kelompok', 'jenis.kelompok_id = kelompok.kelompok_id', 'left');
+        $this->db->join('akun', 'kelompok.akun_id = akun.akun_id', 'left');
+        if($id !=null) {
+            $this->db->where('belanja.dpa_id', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function getbelanja($id = null)
     {
         $this->db->select('belanja.*, dpa.kode, dpa.name, program.kode as kode_program, program.name as nama_program, kegiatan.kode as kode_kegiatan, kegiatan.name as nama_kegiatan, akun.kode_akun, kelompok.kode_kelompok, jenis.kode_jenis, objek.kode_objek, rincian_objek.kode_rincian_objek, sub_rincian_objek.kode_sub_rincian_objek, sub_rincian_objek.nama_sub_rincian_objek');
@@ -86,13 +93,13 @@ class Dpa_m extends CI_Model {
         return $query;
     }
 
-    public function jumlah_pagu_belanja_murni($dpa_id)
+    public function pagu_belanja_murni($dpa_id)
     {
-        $this->db->select('SUM(pagu_belanja_murni) as jumlah_pagu_belanja_murni');
+        $this->db->select('SUM(pagu_belanja_murni) as total_pagu_belanja_murni, belanja.dpa_id');
         $this->db->from('belanja');
-        $this->db->where('dpa_id', $dpa_id);
+        $this->db->where('belanja.dpa_id', $dpa_id);
         $query = $this->db->get();
-        return $query->row();
+        return $query;
     }
 
     public function detail_belanja($belanja_id)

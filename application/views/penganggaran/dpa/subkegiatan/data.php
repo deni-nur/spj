@@ -33,7 +33,7 @@
 						<th>Program</th>
                         <th>Kegiatan</th>
                         <th>Sub Kegiatan</th>
-                        <!-- <th>Pagu Anggaran</th> -->
+                        <th>Pagu Anggaran</th>
 						<th width="8%">Actions</th>
 					</tr>
 				</thead>
@@ -45,7 +45,7 @@
                         <td><?=$data->kode_program ?> <?=$data->nama_program ?></td>
                         <td><?=$data->kode_kegiatan ?> <?=$data->nama_kegiatan ?></td>
                         <td><?=$data->kode ?> <?=$data->name ?></td>
-                        <!-- <td></td> -->
+                        <td><?=indo_bil($data->total_pagu_belanja_murni) ?></td>
                         <td class="text-center" width="160px">
                             <a href="<?=site_url('dpa/'.$data->dpa_id.'/belanja') ?>" class="btn btn-info btn-sm">
                                 <i class="fa fa-plus" title="Rincian Belanja"></i> 
